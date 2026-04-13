@@ -492,6 +492,41 @@ body {
     transform: scale(0.97);
 }
 
+.kosten-resultaat__actions {
+    display: flex;
+    justify-content: center;
+    gap: var(--space-md);
+    flex-wrap: wrap;
+}
+
+.kosten-resultaat__download {
+    display: inline-block;
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-size: 1rem;
+    padding: 14px 40px;
+    border-radius: var(--border-radius-sm);
+    border: 2px solid var(--afas-blue);
+    cursor: pointer;
+    background: var(--afas-white);
+    color: var(--afas-blue);
+    text-decoration: none;
+    transition:
+        background var(--transition-normal),
+        transform var(--transition-fast),
+        box-shadow var(--transition-normal);
+}
+
+.kosten-resultaat__download:hover {
+    background: var(--afas-extra-light-blue);
+    box-shadow: 0 4px 12px rgba(0, 95, 170, 0.15);
+    transform: translateY(-1px);
+}
+
+.kosten-resultaat__download:active {
+    transform: scale(0.97);
+}
+
 /* --- Step Content Transition --- */
 .step-content {
     opacity: 1;
