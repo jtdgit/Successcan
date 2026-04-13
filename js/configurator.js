@@ -268,126 +268,219 @@ const Configurator = (() => {
         const branche = SuccesscanData.branches.find(b => b.id === state.selectedBranche);
         const scan = SuccesscanData.scanVarianten.find(s => s.id === state.selectedScan);
         const kosten = SuccesscanData.formatKosten(scan.kosten);
-        const datum = new Date().toLocaleDateString('nl-NL', { day: 'numeric', month: 'long', year: 'numeric' });
+
+        const vandaag = new Date();
+        const geldigTot = new Date(vandaag);
+        geldigTot.setMonth(geldigTot.getMonth() + 1);
+
+        const datumOpmaak = { day: 'numeric', month: 'long', year: 'numeric' };
+        const datum = vandaag.toLocaleDateString('nl-NL', datumOpmaak);
+        const geldigheid = geldigTot.toLocaleDateString('nl-NL', datumOpmaak);
 
         const blue = [0, 95, 170];
         const darkGray = [65, 71, 77];
         const lightGray = [195, 203, 211];
         const white = [255, 255, 255];
+        const pageWidth = 210;
+        const margin = 20;
+        const contentWidth = pageWidth - margin * 2;
 
-        // ── Header bar ──
+        // ── Helper: section heading ──
+        function sectionHeading(label, yPos) {
+            doc.setFont('helvetica', 'bold');
+            doc.setTextColor(...blue);
+            doc.setFontSize(11);
+            doc.text(label, margin, yPos);
+            return yPos + 8;
+        }
+
+        // ── Helper: body text block ──
+        function bodyText(text, yPos, fontSize) {
+            doc.setFont('helvetica', 'normal');
+            doc.setTextColor(...darkGray);
+            doc.setFontSize(fontSize || 9.5);
+            const lines = doc.splitTextToSize(text, contentWidth);
+            doc.text(lines, margin, yPos);
+            return yPos + lines.length * (fontSize ? fontSize * 0.55 : 5.2);
+        }
+
+        // ══════════════════════════════════════
+        // HEADER
+        // ══════════════════════════════════════
         doc.setFillColor(...blue);
-        doc.rect(0, 0, 210, 40, 'F');
+        doc.rect(0, 0, pageWidth, 44, 'F');
 
         doc.setTextColor(...white);
         doc.setFont('helvetica', 'bold');
-        doc.setFontSize(22);
-        doc.text('AFAS', 20, 22);
+        doc.setFontSize(24);
+        doc.text('AFAS', margin, 24);
         doc.setFont('helvetica', 'normal');
-        doc.setFontSize(11);
-        doc.text('Software', 52, 22);
+        doc.setFontSize(12);
+        doc.text('Software', 55, 24);
 
-        doc.setFontSize(14);
         doc.setFont('helvetica', 'normal');
-        doc.text('Offerte Successcan', 20, 34);
+        doc.setFontSize(15);
+        doc.text('Offerte ' + scan.naam + ' Successcan', margin, 38);
 
-        // ── Datum ──
+        // ══════════════════════════════════════
+        // DATUM & GELDIGHEID
+        // ══════════════════════════════════════
+        let y = 58;
+
+        doc.setFontSize(9.5);
         doc.setTextColor(...darkGray);
-        doc.setFontSize(9);
-        doc.text(datum, 190, 34, { align: 'right' });
-
-        // ── Divider ──
-        let y = 55;
-
-        // ── Selection summary ──
-        doc.setFontSize(10);
-        doc.setFont('helvetica', 'bold');
-        doc.setTextColor(...blue);
-        doc.text('GEGEVENS', 20, y);
-        y += 10;
-
-        doc.setFont('helvetica', 'normal');
-        doc.setTextColor(...darkGray);
-        doc.setFontSize(10);
 
         doc.setFont('helvetica', 'bold');
-        doc.text('Branche:', 20, y);
+        doc.text('Datum:', margin, y);
         doc.setFont('helvetica', 'normal');
-        doc.text(branche.naam, 60, y);
+        doc.text(datum, 55, y);
+
+        doc.setFont('helvetica', 'bold');
+        doc.text('Geldig tot:', 110, y);
+        doc.setFont('helvetica', 'normal');
+        doc.text(geldigheid, 145, y);
         y += 8;
 
         doc.setFont('helvetica', 'bold');
-        doc.text('Type scan:', 20, y);
+        doc.text('Branche:', margin, y);
         doc.setFont('helvetica', 'normal');
-        doc.text(scan.naam + ' Successcan', 60, y);
-        y += 16;
+        doc.text(branche.naam, 55, y);
 
-        // ── Divider line ──
-        doc.setDrawColor(...lightGray);
-        doc.setLineWidth(0.5);
-        doc.line(20, y, 190, y);
-        y += 16;
-
-        // ── Kosten tabel ──
         doc.setFont('helvetica', 'bold');
-        doc.setTextColor(...blue);
-        doc.setFontSize(10);
-        doc.text('KOSTEN', 20, y);
-        y += 10;
+        doc.text('Type scan:', 110, y);
+        doc.setFont('helvetica', 'normal');
+        doc.text(scan.naam + ' Successcan', 145, y);
+        y += 14;
+
+        // ── Divider ──
+        doc.setDrawColor(...lightGray);
+        doc.setLineWidth(0.4);
+        doc.line(margin, y, margin + contentWidth, y);
+        y += 12;
+
+        // ══════════════════════════════════════
+        // WAT IS EEN SUCCESSCAN?
+        // ══════════════════════════════════════
+        y = sectionHeading('Wat is een Successcan?', y);
+        y = bodyText(
+            'De Successcan is een diepgaande analyse van je huidige AFAS-omgeving, ' +
+            'uitgevoerd door een ervaren AFAS-consultant. Het doel is om in kaart te ' +
+            'brengen hoe je de software op dit moment gebruikt, waar verbeterpotentieel ' +
+            'ligt en hoe je processen verder kunt optimaliseren. De scan is beschikbaar ' +
+            'voor HRM, ERP of als combinatie van beide.',
+            y
+        );
+        y += 4;
+
+        // ══════════════════════════════════════
+        // WAT KRIJG JE?
+        // ══════════════════════════════════════
+        y = sectionHeading('Wat krijg je?', y);
+
+        const watKrijgJe = [
+            'Grondige analyse van je huidige inrichting en gebruik van AFAS door een gecertificeerde consultant.',
+            'Vergelijking met best practices uit jouw branche (' + branche.naam.toLowerCase() + ') op basis van onze ervaring bij vergelijkbare organisaties.',
+            'Een helder rapport met concrete verbeterpunten, gerangschikt op prioriteit en impact.',
+            'Een plan van aanpak met aanbevelingen voor optimalisatie, inclusief een inschatting van de benodigde inspanning.',
+            'Een persoonlijke presentatie van de resultaten en bevindingen aan je projectteam.'
+        ];
+
+        watKrijgJe.forEach(item => {
+            doc.setFont('helvetica', 'normal');
+            doc.setTextColor(...darkGray);
+            doc.setFontSize(9.5);
+            const lines = doc.splitTextToSize(item, contentWidth - 8);
+            doc.text('•', margin, y);
+            doc.text(lines, margin + 8, y);
+            y += lines.length * 5.2 + 2;
+        });
+        y += 4;
+
+        // ══════════════════════════════════════
+        // WERKWIJZE
+        // ══════════════════════════════════════
+        y = sectionHeading('Werkwijze', y);
+        y = bodyText(
+            'De Successcan wordt uitgevoerd in drie fasen. Eerst vindt een intake ' +
+            'plaats waarin we je huidige situatie en doelstellingen bespreken. ' +
+            'Vervolgens analyseert de consultant je AFAS-omgeving op basis van een ' +
+            'gestandaardiseerde methodiek. Tot slot ontvang je het rapport en wordt ' +
+            'dit persoonlijk toegelicht. De gehele scan wordt doorgaans binnen ' +
+            '2 tot 4 weken afgerond.',
+            y
+        );
+        y += 6;
+
+        // ══════════════════════════════════════
+        // KOSTEN
+        // ══════════════════════════════════════
+        y = sectionHeading('Kosten', y);
+        y += 2;
 
         // Table header
         doc.setFillColor(...blue);
-        doc.rect(20, y, 170, 10, 'F');
+        doc.rect(margin, y, contentWidth, 10, 'F');
         doc.setTextColor(...white);
         doc.setFontSize(9);
         doc.setFont('helvetica', 'bold');
-        doc.text('Omschrijving', 25, y + 7);
-        doc.text('Bedrag', 185, y + 7, { align: 'right' });
+        doc.text('Omschrijving', margin + 5, y + 7);
+        doc.text('Bedrag', margin + contentWidth - 5, y + 7, { align: 'right' });
         y += 10;
 
         // Table row
         doc.setFillColor(242, 245, 248);
-        doc.rect(20, y, 170, 10, 'F');
+        doc.rect(margin, y, contentWidth, 10, 'F');
         doc.setTextColor(...darkGray);
         doc.setFont('helvetica', 'normal');
-        doc.text(scan.naam + ' Successcan', 25, y + 7);
+        doc.setFontSize(9.5);
+        doc.text(scan.naam + ' Successcan — ' + branche.naam, margin + 5, y + 7);
         doc.setFont('helvetica', 'bold');
-        doc.text(kosten, 185, y + 7, { align: 'right' });
+        doc.text(kosten, margin + contentWidth - 5, y + 7, { align: 'right' });
         y += 10;
 
         // Total row
         doc.setFillColor(...blue);
-        doc.rect(20, y, 170, 12, 'F');
+        doc.rect(margin, y, contentWidth, 12, 'F');
         doc.setTextColor(...white);
         doc.setFont('helvetica', 'bold');
-        doc.setFontSize(11);
-        doc.text('Totaal (excl. BTW)', 25, y + 8);
-        doc.text(kosten, 185, y + 8, { align: 'right' });
-        y += 24;
+        doc.setFontSize(10.5);
+        doc.text('Totaal (excl. BTW)', margin + 5, y + 8);
+        doc.text(kosten, margin + contentWidth - 5, y + 8, { align: 'right' });
+        y += 18;
 
-        // ── Beschrijving ──
-        doc.setTextColor(...darkGray);
+        // BTW note
         doc.setFont('helvetica', 'normal');
-        doc.setFontSize(9);
-        const beschrijving = doc.splitTextToSize(
-            'De ' + scan.naam + ' Successcan biedt een grondige analyse van je huidige inrichting ' +
-            'en geeft concrete verbeterpunten om meer uit AFAS te halen. Na de scan ontvang je een ' +
-            'helder rapport met prioriteiten en een plan van aanpak.',
-            170
-        );
-        doc.text(beschrijving, 20, y);
-        y += beschrijving.length * 5 + 10;
-
-        // ── Footer ──
-        doc.setDrawColor(...lightGray);
-        doc.line(20, 275, 190, 275);
-        doc.setFontSize(8);
         doc.setTextColor(...lightGray);
-        doc.text('AFAS Software - Successcan Configurator', 105, 282, { align: 'center' });
-        doc.text('Dit document is indicatief en vormt geen bindende offerte.', 105, 287, { align: 'center' });
+        doc.setFontSize(8);
+        doc.text('Alle genoemde bedragen zijn exclusief 21% BTW.', margin, y);
+        y += 10;
+
+        // ══════════════════════════════════════
+        // VOORWAARDEN
+        // ══════════════════════════════════════
+        y = sectionHeading('Voorwaarden', y);
+        y = bodyText(
+            'Deze offerte is geldig tot ' + geldigheid + '. Na acceptatie nemen wij ' +
+            'binnen 5 werkdagen contact op om de intake in te plannen. Op deze offerte ' +
+            'zijn de algemene voorwaarden van AFAS Software van toepassing.',
+            y
+        );
+
+        // ══════════════════════════════════════
+        // FOOTER
+        // ══════════════════════════════════════
+        doc.setDrawColor(...lightGray);
+        doc.setLineWidth(0.3);
+        doc.line(margin, 275, margin + contentWidth, 275);
+
+        doc.setFontSize(7.5);
+        doc.setTextColor(...lightGray);
+        doc.setFont('helvetica', 'normal');
+        doc.text('AFAS Software  |  Postbus 38  |  3770 AA Barneveld  |  afas.nl', pageWidth / 2, 281, { align: 'center' });
+        doc.text('Datum: ' + datum + '  |  Geldig tot: ' + geldigheid + '  |  Referentie: SC-' + vandaag.getFullYear() + '-' + String(vandaag.getMonth() + 1).padStart(2, '0') + '-' + scan.id.toUpperCase(), pageWidth / 2, 286, { align: 'center' });
 
         // ── Save ──
-        doc.save('Offerte-Successcan-' + scan.id.toUpperCase() + '.pdf');
+        doc.save('Offerte-Successcan-' + scan.id.toUpperCase() + '-' + vandaag.toISOString().slice(0, 10) + '.pdf');
     }
 
     // ── Boot ───────────────────────────────────
