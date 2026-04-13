@@ -1,6 +1,7 @@
 /* ============================================
-   AFAS SuccesScan Configurator
+   AFAS Successcan Configurator
    Brand: AFAS Software huisstijl
+   Layout: Two-column (hero + wizard)
    ============================================ */
 
 /* --- Google Fonts --- */
@@ -38,7 +39,6 @@
     --space-3xl: 64px;
 
     /* Sizing */
-    --max-width: 960px;
     --border-radius: 10px;
     --border-radius-sm: 6px;
 
@@ -71,7 +71,7 @@ html {
 body {
     font-family: var(--font-body);
     color: var(--afas-dark-gray);
-    background: var(--afas-extra-light-gray);
+    background: var(--afas-white);
     line-height: 1.6;
     min-height: 100vh;
 }
@@ -79,56 +79,175 @@ body {
 /* --- Header --- */
 .configurator-header {
     background: var(--afas-white);
-    border-bottom: 1px solid var(--afas-light-gray);
-    padding: var(--space-md) var(--space-lg);
+    border-bottom: 1px solid var(--afas-extra-light-gray);
+    padding: var(--space-md) var(--space-xl);
 }
 
 .configurator-header__inner {
-    max-width: var(--max-width);
-    margin: 0 auto;
     display: flex;
     align-items: center;
     gap: var(--space-md);
 }
 
 .configurator-header__logo {
-    height: 32px;
+    height: 28px;
     width: auto;
 }
 
-.configurator-header__title {
+/* --- Two-Column Layout --- */
+.configurator-layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    min-height: calc(100vh - 60px);
+}
+
+/* --- Hero Panel (Left) --- */
+.hero-panel {
+    background: var(--afas-extra-light-gray);
+    padding: var(--space-2xl) var(--space-2xl) var(--space-xl);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-lg);
+}
+
+.hero-panel__image {
+    border-radius: var(--border-radius);
+    overflow: hidden;
+    box-shadow: var(--shadow-card);
+}
+
+.hero-panel__image img {
+    width: 100%;
+    height: 320px;
+    object-fit: cover;
+    display: block;
+}
+
+.hero-panel__text {
+    padding: var(--space-sm) 0;
+}
+
+.hero-panel__title {
     font-family: var(--font-heading);
     font-weight: 300;
-    font-size: 1.15rem;
-    color: var(--afas-dark-gray);
+    font-size: 1.8rem;
+    color: var(--afas-light-gray);
     letter-spacing: -0.01em;
 }
 
-/* --- Main Container --- */
+.hero-panel__subtitle {
+    font-family: var(--font-body);
+    font-weight: 400;
+    font-size: 0.9rem;
+    color: var(--afas-dark-gray);
+    margin-top: var(--space-xs);
+}
+
+/* --- Reviews --- */
+.hero-panel__reviews {
+    background: var(--afas-white);
+    border-radius: var(--border-radius);
+    padding: var(--space-lg);
+    box-shadow: var(--shadow-card);
+}
+
+.reviews-header {
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+    margin-bottom: var(--space-md);
+    padding-bottom: var(--space-md);
+    border-bottom: 1px solid var(--afas-extra-light-gray);
+}
+
+.reviews-header__stars {
+    color: var(--afas-green);
+    font-size: 1rem;
+    letter-spacing: 1px;
+}
+
+.reviews-header__score {
+    font-family: var(--font-heading);
+    font-weight: 900;
+    font-size: 1.1rem;
+    color: var(--afas-black);
+}
+
+.reviews-header__count {
+    font-size: 0.8rem;
+    color: var(--afas-light-gray);
+}
+
+.reviews-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-md);
+}
+
+.review-card {
+    padding: var(--space-md);
+    background: var(--afas-extra-light-gray);
+    border-radius: var(--border-radius-sm);
+}
+
+.review-card__stars {
+    color: var(--afas-green);
+    font-size: 0.75rem;
+    letter-spacing: 1px;
+    margin-bottom: var(--space-sm);
+}
+
+.review-card__text {
+    font-size: 0.8rem;
+    font-style: italic;
+    color: var(--afas-dark-gray);
+    line-height: 1.5;
+    margin-bottom: var(--space-sm);
+}
+
+.review-card__author {
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-size: 0.75rem;
+    color: var(--afas-black);
+}
+
+/* --- Main Wizard (Right) --- */
 .configurator {
-    max-width: var(--max-width);
-    margin: 0 auto;
-    padding: var(--space-2xl) var(--space-lg);
+    padding: var(--space-2xl) var(--space-2xl) var(--space-xl);
+    display: flex;
+    flex-direction: column;
+}
+
+.configurator__title {
+    font-family: var(--font-heading);
+    font-weight: 900;
+    font-size: 1.5rem;
+    color: var(--afas-blue);
+    letter-spacing: -0.02em;
+    margin-bottom: var(--space-lg);
 }
 
 /* --- Step Indicator --- */
 .step-indicator {
     display: flex;
-    align-items: center;
-    justify-content: center;
+    align-items: flex-start;
+    justify-content: flex-start;
     gap: 0;
-    margin-bottom: var(--space-2xl);
+    margin-bottom: var(--space-xl);
     position: relative;
 }
 
 .step-indicator__item {
     display: flex;
+    flex-direction: column;
     align-items: center;
-    gap: var(--space-sm);
-    padding: var(--space-sm) var(--space-md);
+    gap: var(--space-xs);
+    padding: 0 var(--space-md);
     position: relative;
     cursor: default;
     user-select: none;
+    min-width: 70px;
 }
 
 .step-indicator__number {
@@ -150,21 +269,22 @@ body {
 .step-indicator__label {
     font-family: var(--font-heading);
     font-weight: 300;
-    font-size: 0.9rem;
+    font-size: 0.75rem;
     color: var(--afas-light-gray);
     transition: color var(--transition-normal);
     white-space: nowrap;
+    text-align: center;
 }
 
 /* Active step */
 .step-indicator__item--active .step-indicator__number {
-    background: var(--afas-blue);
+    background: var(--afas-green);
     color: var(--afas-white);
-    transform: scale(1.1);
+    transform: scale(1.05);
 }
 
 .step-indicator__item--active .step-indicator__label {
-    color: var(--afas-blue);
+    color: var(--afas-dark-gray);
     font-weight: 700;
 }
 
@@ -180,11 +300,12 @@ body {
 
 /* Connector line between steps */
 .step-indicator__connector {
-    width: 40px;
+    width: 60px;
     height: 2px;
     background: var(--afas-light-gray);
     transition: background var(--transition-normal);
     flex-shrink: 0;
+    margin-top: 15px; /* center with circle */
 }
 
 .step-indicator__connector--completed {
@@ -193,17 +314,16 @@ body {
 
 /* --- Step Header --- */
 .step-header {
-    text-align: center;
-    margin-bottom: var(--space-xl);
+    text-align: left;
+    margin-bottom: var(--space-lg);
 }
 
 .step-header__subtitle {
     font-family: var(--font-body);
-    font-weight: 400;
-    font-size: 0.85rem;
+    font-weight: 300;
+    font-size: 0.9rem;
     color: var(--afas-light-gray);
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
+    font-style: italic;
     margin-bottom: var(--space-xs);
 }
 
@@ -213,100 +333,68 @@ body {
     font-size: 1.6rem;
     color: var(--afas-black);
     letter-spacing: -0.02em;
+    display: none; /* subtitle already contains the question */
 }
 
-/* --- Card Grid --- */
-.card-grid {
-    display: grid;
+/* --- Card List (vertical stack, horizontal cards) --- */
+.card-list {
+    display: flex;
+    flex-direction: column;
     gap: var(--space-md);
 }
 
-.card-grid--cols-3 {
-    grid-template-columns: repeat(3, 1fr);
-}
-
-/* --- Option Card --- */
 .option-card {
     background: var(--afas-white);
-    border: 2px solid transparent;
+    border: 1px solid var(--afas-light-gray);
     border-radius: var(--border-radius);
-    padding: var(--space-lg);
+    padding: var(--space-lg) var(--space-xl);
     cursor: pointer;
-    text-align: center;
-    box-shadow: var(--shadow-card);
+    display: flex;
+    align-items: center;
+    gap: var(--space-lg);
     transition:
         border-color var(--transition-normal),
         box-shadow var(--transition-normal),
-        transform var(--transition-fast),
         background var(--transition-normal);
     position: relative;
-    overflow: hidden;
-}
-
-.option-card::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 3px;
-    background: transparent;
-    transition: background var(--transition-normal);
 }
 
 .option-card:hover {
     border-color: var(--afas-extra-light-blue);
     box-shadow: var(--shadow-card-hover);
-    transform: translateY(-2px);
 }
 
 .option-card--selected {
     border-color: var(--afas-blue);
     box-shadow: var(--shadow-card-active);
-    background: rgba(0, 95, 170, 0.03);
-}
-
-.option-card--selected::before {
-    background: var(--afas-blue);
+    background: rgba(0, 95, 170, 0.02);
 }
 
 .option-card__icon {
-    font-size: 2.2rem;
-    margin-bottom: var(--space-md);
-    display: block;
+    font-size: 1.8rem;
     line-height: 1;
+    flex-shrink: 0;
+    width: 40px;
+    text-align: center;
+}
+
+.option-card__text {
+    flex: 1;
+    min-width: 0;
 }
 
 .option-card__title {
     font-family: var(--font-heading);
     font-weight: 700;
-    font-size: 1rem;
-    color: var(--afas-black);
-    margin-bottom: var(--space-xs);
+    font-size: 0.95rem;
+    color: var(--afas-blue);
+    margin-bottom: 2px;
 }
 
 .option-card__description {
     font-size: 0.8rem;
     color: var(--afas-dark-gray);
-    line-height: 1.5;
-}
-
-/* Price badge on scan cards */
-.option-card__price {
-    display: inline-block;
-    font-family: var(--font-heading);
-    font-weight: 700;
-    font-size: 0.85rem;
-    padding: 4px 12px;
-    border-radius: 20px;
-    margin-top: var(--space-md);
-    background: var(--afas-extra-light-blue);
-    color: var(--afas-blue);
-}
-
-.option-card--selected .option-card__price {
-    background: var(--afas-blue);
-    color: var(--afas-white);
+    line-height: 1.4;
 }
 
 /* --- Navigation --- */
@@ -314,9 +402,8 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-top: var(--space-2xl);
-    padding-top: var(--space-lg);
-    border-top: 1px solid var(--afas-light-gray);
+    margin-top: auto;
+    padding-top: var(--space-xl);
 }
 
 .btn {
@@ -377,8 +464,6 @@ body {
 /* --- Kosten Resultaat (Step 3) --- */
 .kosten-resultaat {
     text-align: center;
-    max-width: 600px;
-    margin: 0 auto;
 }
 
 .kosten-resultaat__selectie {
@@ -443,7 +528,7 @@ body {
 .kosten-resultaat__prijs {
     font-family: var(--font-heading);
     font-weight: 900;
-    font-size: 3.5rem;
+    font-size: 3rem;
     color: var(--afas-blue);
     line-height: 1.1;
     letter-spacing: -0.02em;
@@ -458,18 +543,26 @@ body {
 }
 
 .kosten-resultaat__beschrijving {
-    font-size: 0.9rem;
+    font-size: 0.85rem;
     color: var(--afas-dark-gray);
     line-height: 1.7;
     margin-bottom: var(--space-xl);
+    text-align: left;
+}
+
+.kosten-resultaat__actions {
+    display: flex;
+    justify-content: center;
+    gap: var(--space-md);
+    flex-wrap: wrap;
 }
 
 .kosten-resultaat__cta {
     display: inline-block;
     font-family: var(--font-heading);
     font-weight: 700;
-    font-size: 1rem;
-    padding: 14px 40px;
+    font-size: 0.95rem;
+    padding: 12px 32px;
     border-radius: var(--border-radius-sm);
     border: none;
     cursor: pointer;
@@ -492,19 +585,12 @@ body {
     transform: scale(0.97);
 }
 
-.kosten-resultaat__actions {
-    display: flex;
-    justify-content: center;
-    gap: var(--space-md);
-    flex-wrap: wrap;
-}
-
 .kosten-resultaat__download {
     display: inline-block;
     font-family: var(--font-heading);
     font-weight: 700;
-    font-size: 1rem;
-    padding: 14px 40px;
+    font-size: 0.95rem;
+    padding: 12px 32px;
     border-radius: var(--border-radius-sm);
     border: 2px solid var(--afas-blue);
     cursor: pointer;
@@ -559,7 +645,7 @@ body {
 
 /* --- Validation message --- */
 .validation-message {
-    text-align: center;
+    text-align: left;
     color: #D32F2F;
     font-size: 0.85rem;
     margin-top: var(--space-md);
@@ -572,41 +658,24 @@ body {
 }
 
 /* --- Responsive --- */
-@media (max-width: 768px) {
-    .configurator {
-        padding: var(--space-lg) var(--space-md);
+@media (max-width: 1024px) {
+    .configurator-layout {
+        grid-template-columns: 1fr;
     }
 
-    .card-grid--cols-3 {
-        grid-template-columns: repeat(2, 1fr);
-    }
-
-    .step-indicator__label {
+    .hero-panel {
         display: none;
     }
 
-    .step-indicator__connector {
-        width: 24px;
-    }
-
-    .step-header__title {
-        font-size: 1.3rem;
-    }
-
-    .kosten-resultaat__prijs {
-        font-size: 2.5rem;
-    }
-
-    .kosten-resultaat__selectie {
-        flex-direction: column;
-        align-items: center;
-        gap: var(--space-md);
+    .configurator {
+        padding: var(--space-xl) var(--space-lg);
+        min-height: 100vh;
     }
 }
 
 @media (max-width: 480px) {
-    .card-grid--cols-3 {
-        grid-template-columns: 1fr;
+    .configurator {
+        padding: var(--space-lg) var(--space-md);
     }
 
     .step-navigation {
@@ -623,11 +692,25 @@ body {
         display: none;
     }
 
-    .configurator-header__title {
-        font-size: 0.95rem;
+    .step-indicator__label {
+        display: none;
+    }
+
+    .step-indicator__connector {
+        width: 30px;
     }
 
     .kosten-resultaat__prijs {
         font-size: 2rem;
+    }
+
+    .kosten-resultaat__actions {
+        flex-direction: column;
+    }
+
+    .kosten-resultaat__cta,
+    .kosten-resultaat__download {
+        width: 100%;
+        text-align: center;
     }
 }

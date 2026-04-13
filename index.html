@@ -16,51 +16,86 @@
                 <text x="0" y="24" font-family="Roboto, Arial" font-weight="900" font-size="22" fill="#005FAA">AFAS</text>
                 <text x="72" y="24" font-family="Roboto, Arial" font-weight="300" font-size="11" fill="#41474D">Software</text>
             </svg>
-            <span class="configurator-header__title">Successcan Configurator</span>
         </div>
     </header>
 
-    <!-- Wizard -->
-    <main class="configurator">
+    <!-- Two-column layout -->
+    <div class="configurator-layout">
 
-        <!-- Step Indicator -->
-        <nav class="step-indicator" id="stepIndicator">
-            <div class="step-indicator__item step-indicator__item--active" data-step="1">
-                <span class="step-indicator__number">1</span>
-                <span class="step-indicator__label">Branche</span>
+        <!-- Left: Hero panel -->
+        <aside class="hero-panel">
+            <div class="hero-panel__image">
+                <img src="https://images.unsplash.com/photo-1600880292203-757bb62b4baf?w=800&q=80" alt="AFAS Consultancy">
             </div>
-            <div class="step-indicator__connector" data-connector="1"></div>
-            <div class="step-indicator__item" data-step="2">
-                <span class="step-indicator__number">2</span>
-                <span class="step-indicator__label">Type scan</span>
+            <div class="hero-panel__text">
+                <h2 class="hero-panel__title">Even rekenen...</h2>
+                <p class="hero-panel__subtitle">Kies je branche en type scan om te beginnen</p>
             </div>
-            <div class="step-indicator__connector" data-connector="2"></div>
-            <div class="step-indicator__item" data-step="3">
-                <span class="step-indicator__number">3</span>
-                <span class="step-indicator__label">Kosten</span>
+            <div class="hero-panel__reviews">
+                <div class="reviews-header">
+                    <span class="reviews-header__stars">★★★★★</span>
+                    <span class="reviews-header__score">4.8</span>
+                    <span class="reviews-header__count">· klanttevredenheid</span>
+                </div>
+                <div class="reviews-grid">
+                    <div class="review-card">
+                        <div class="review-card__stars">★★★★★</div>
+                        <p class="review-card__text">"De Successcan gaf ons direct inzicht in verbeterpunten. Heel waardevol!"</p>
+                        <span class="review-card__author">M. de Vries</span>
+                    </div>
+                    <div class="review-card">
+                        <div class="review-card__stars">★★★★★</div>
+                        <p class="review-card__text">"Dankzij de scan halen we nu veel meer uit onze AFAS-omgeving."</p>
+                        <span class="review-card__author">J. Bakker</span>
+                    </div>
+                </div>
             </div>
-        </nav>
+        </aside>
 
-        <!-- Step Content -->
-        <div id="stepContent" class="step-content">
-            <!-- Dynamically rendered by configurator.js -->
-        </div>
+        <!-- Right: Wizard -->
+        <main class="configurator">
+            <h1 class="configurator__title">AFAS Successcan Configurator</h1>
 
-        <!-- Validation message -->
-        <div id="validationMessage" class="validation-message">
-            Maak een keuze om verder te gaan.
-        </div>
+            <!-- Step Indicator -->
+            <nav class="step-indicator" id="stepIndicator">
+                <div class="step-indicator__item step-indicator__item--active" data-step="1">
+                    <span class="step-indicator__number">1</span>
+                    <span class="step-indicator__label">Branche</span>
+                </div>
+                <div class="step-indicator__connector" data-connector="1"></div>
+                <div class="step-indicator__item" data-step="2">
+                    <span class="step-indicator__number">2</span>
+                    <span class="step-indicator__label">Type scan</span>
+                </div>
+                <div class="step-indicator__connector" data-connector="2"></div>
+                <div class="step-indicator__item" data-step="3">
+                    <span class="step-indicator__number">3</span>
+                    <span class="step-indicator__label">Kosten</span>
+                </div>
+            </nav>
 
-        <!-- Navigation -->
-        <div class="step-navigation">
-            <button id="btnPrev" class="btn btn--secondary btn--ghost" onclick="Configurator.prevStep()">
-                ← Vorige
-            </button>
-            <button id="btnNext" class="btn btn--primary" onclick="Configurator.nextStep()">
-                Volgende →
-            </button>
-        </div>
-    </main>
+            <!-- Step Content -->
+            <div id="stepContent" class="step-content">
+                <!-- Dynamically rendered by configurator.js -->
+            </div>
+
+            <!-- Validation message -->
+            <div id="validationMessage" class="validation-message">
+                Maak een keuze om verder te gaan.
+            </div>
+
+            <!-- Navigation -->
+            <div class="step-navigation">
+                <button id="btnPrev" class="btn btn--secondary btn--ghost" onclick="Configurator.prevStep()">
+                    ← Vorige
+                </button>
+                <button id="btnNext" class="btn btn--primary" onclick="Configurator.nextStep()">
+                    Volgende →
+                </button>
+            </div>
+        </main>
+
+    </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.2/jspdf.umd.min.js"></script>
     <script src="js/data.js"></script>

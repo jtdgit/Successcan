@@ -158,16 +158,17 @@ const Configurator = (() => {
     function renderBrancheStep(container) {
         container.innerHTML = `
             <div class="step-header">
-                <div class="step-header__subtitle">Stap 1 van 3</div>
-                <h2 class="step-header__title">In welke branche is je organisatie actief?</h2>
+                <div class="step-header__subtitle">Stap 1 van 3 — In welke branche is je organisatie actief?</div>
             </div>
-            <div class="card-grid card-grid--cols-3">
+            <div class="card-list">
                 ${SuccesscanData.branches.map(b => `
                     <div class="option-card ${state.selectedBranche === b.id ? 'option-card--selected' : ''}"
                          onclick="Configurator.selectBranche('${b.id}')">
                         <span class="option-card__icon">${b.icoon}</span>
-                        <div class="option-card__title">${b.naam}</div>
-                        <div class="option-card__description">${b.beschrijving}</div>
+                        <div class="option-card__text">
+                            <div class="option-card__title">${b.naam}</div>
+                            <div class="option-card__description">${b.beschrijving}</div>
+                        </div>
                     </div>
                 `).join('')}
             </div>
@@ -184,16 +185,17 @@ const Configurator = (() => {
     function renderScanStep(container) {
         container.innerHTML = `
             <div class="step-header">
-                <div class="step-header__subtitle">Stap 2 van 3</div>
-                <h2 class="step-header__title">Welke Successcan wil je uitvoeren?</h2>
+                <div class="step-header__subtitle">Stap 2 van 3 — Welke Successcan wil je uitvoeren?</div>
             </div>
-            <div class="card-grid card-grid--cols-3">
+            <div class="card-list">
                 ${SuccesscanData.scanVarianten.map(s => `
                     <div class="option-card ${state.selectedScan === s.id ? 'option-card--selected' : ''}"
                          onclick="Configurator.selectScan('${s.id}')">
                         <span class="option-card__icon">${s.icoon}</span>
-                        <div class="option-card__title">${s.naam}</div>
-                        <div class="option-card__description">${s.beschrijving}</div>
+                        <div class="option-card__text">
+                            <div class="option-card__title">${s.naam}</div>
+                            <div class="option-card__description">${s.beschrijving}</div>
+                        </div>
                     </div>
                 `).join('')}
             </div>
@@ -213,8 +215,7 @@ const Configurator = (() => {
 
         container.innerHTML = `
             <div class="step-header">
-                <div class="step-header__subtitle">Stap 3 van 3</div>
-                <h2 class="step-header__title">Kosten van je Successcan</h2>
+                <div class="step-header__subtitle">Stap 3 van 3 — Kosten van je Successcan</div>
             </div>
 
             <div class="kosten-resultaat">
