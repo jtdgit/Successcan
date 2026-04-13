@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AFAS SuccesScan Configurator</title>
+    <link rel="stylesheet" href="css/configurator.css">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'><text y='14' font-size='14'>🔍</text></svg>">
+</head>
+<body>
+
+    <!-- Header -->
+    <header class="configurator-header">
+        <div class="configurator-header__inner">
+            <svg class="configurator-header__logo" viewBox="0 0 120 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <text x="0" y="24" font-family="Roboto, Arial" font-weight="900" font-size="22" fill="#005FAA">AFAS</text>
+                <text x="72" y="24" font-family="Roboto, Arial" font-weight="300" font-size="11" fill="#41474D">Software</text>
+            </svg>
+            <span class="configurator-header__title">SuccesScan Configurator</span>
+        </div>
+    </header>
+
+    <!-- Wizard -->
+    <main class="configurator">
+
+        <!-- Step Indicator -->
+        <nav class="step-indicator" id="stepIndicator">
+            <div class="step-indicator__item step-indicator__item--active" data-step="1">
+                <span class="step-indicator__number">1</span>
+                <span class="step-indicator__label">Branche</span>
+            </div>
+            <div class="step-indicator__connector" data-connector="1"></div>
+            <div class="step-indicator__item" data-step="2">
+                <span class="step-indicator__number">2</span>
+                <span class="step-indicator__label">Type scan</span>
+            </div>
+            <div class="step-indicator__connector" data-connector="2"></div>
+            <div class="step-indicator__item" data-step="3">
+                <span class="step-indicator__number">3</span>
+                <span class="step-indicator__label">Kosten</span>
+            </div>
+        </nav>
+
+        <!-- Step Content -->
+        <div id="stepContent" class="step-content">
+            <!-- Dynamically rendered by configurator.js -->
+        </div>
+
+        <!-- Validation message -->
+        <div id="validationMessage" class="validation-message">
+            Maak een keuze om verder te gaan.
+        </div>
+
+        <!-- Navigation -->
+        <div class="step-navigation">
+            <button id="btnPrev" class="btn btn--secondary btn--ghost" onclick="Configurator.prevStep()">
+                ← Vorige
+            </button>
+            <button id="btnNext" class="btn btn--primary" onclick="Configurator.nextStep()">
+                Volgende →
+            </button>
+        </div>
+    </main>
+
+    <script src="js/data.js"></script>
+    <script src="js/configurator.js"></script>
+</body>
+</html>

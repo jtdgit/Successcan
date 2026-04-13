@@ -1,0 +1,598 @@
+/* ============================================
+   AFAS SuccesScan Configurator
+   Brand: AFAS Software huisstijl
+   ============================================ */
+
+/* --- Google Fonts --- */
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600&family=Roboto:wght@300;700;900&display=swap');
+
+/* --- CSS Custom Properties (AFAS Brand) --- */
+:root {
+    /* Primary */
+    --afas-blue: #005FAA;
+    --afas-light-blue: #0074D0;
+    --afas-extra-light-blue: #D7EAFF;
+
+    /* Neutrals */
+    --afas-black: #1A1F24;
+    --afas-dark-gray: #41474D;
+    --afas-light-gray: #C3CBD3;
+    --afas-extra-light-gray: #F2F5F8;
+    --afas-white: #FFFFFF;
+
+    /* Accent */
+    --afas-orange: #F59F39;
+    --afas-green: #3CC658;
+
+    /* Typography */
+    --font-heading: 'Roboto', Arial, sans-serif;
+    --font-body: 'Open Sans', Arial, sans-serif;
+
+    /* Spacing */
+    --space-xs: 4px;
+    --space-sm: 8px;
+    --space-md: 16px;
+    --space-lg: 24px;
+    --space-xl: 32px;
+    --space-2xl: 48px;
+    --space-3xl: 64px;
+
+    /* Sizing */
+    --max-width: 960px;
+    --border-radius: 10px;
+    --border-radius-sm: 6px;
+
+    /* Shadows */
+    --shadow-card: 0 2px 8px rgba(0, 0, 0, 0.06);
+    --shadow-card-hover: 0 6px 20px rgba(0, 95, 170, 0.12);
+    --shadow-card-active: 0 2px 12px rgba(0, 95, 170, 0.18);
+
+    /* Transitions */
+    --transition-fast: 150ms ease;
+    --transition-normal: 250ms ease;
+    --transition-slow: 400ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* --- Reset & Base --- */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    font-size: 15px;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+    font-family: var(--font-body);
+    color: var(--afas-dark-gray);
+    background: var(--afas-extra-light-gray);
+    line-height: 1.6;
+    min-height: 100vh;
+}
+
+/* --- Header --- */
+.configurator-header {
+    background: var(--afas-white);
+    border-bottom: 1px solid var(--afas-light-gray);
+    padding: var(--space-md) var(--space-lg);
+}
+
+.configurator-header__inner {
+    max-width: var(--max-width);
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    gap: var(--space-md);
+}
+
+.configurator-header__logo {
+    height: 32px;
+    width: auto;
+}
+
+.configurator-header__title {
+    font-family: var(--font-heading);
+    font-weight: 300;
+    font-size: 1.15rem;
+    color: var(--afas-dark-gray);
+    letter-spacing: -0.01em;
+}
+
+/* --- Main Container --- */
+.configurator {
+    max-width: var(--max-width);
+    margin: 0 auto;
+    padding: var(--space-2xl) var(--space-lg);
+}
+
+/* --- Step Indicator --- */
+.step-indicator {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0;
+    margin-bottom: var(--space-2xl);
+    position: relative;
+}
+
+.step-indicator__item {
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+    padding: var(--space-sm) var(--space-md);
+    position: relative;
+    cursor: default;
+    user-select: none;
+}
+
+.step-indicator__number {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-size: 0.85rem;
+    background: var(--afas-light-gray);
+    color: var(--afas-white);
+    transition: background var(--transition-normal), color var(--transition-normal), transform var(--transition-fast);
+    flex-shrink: 0;
+}
+
+.step-indicator__label {
+    font-family: var(--font-heading);
+    font-weight: 300;
+    font-size: 0.9rem;
+    color: var(--afas-light-gray);
+    transition: color var(--transition-normal);
+    white-space: nowrap;
+}
+
+/* Active step */
+.step-indicator__item--active .step-indicator__number {
+    background: var(--afas-blue);
+    color: var(--afas-white);
+    transform: scale(1.1);
+}
+
+.step-indicator__item--active .step-indicator__label {
+    color: var(--afas-blue);
+    font-weight: 700;
+}
+
+/* Completed step */
+.step-indicator__item--completed .step-indicator__number {
+    background: var(--afas-green);
+    color: var(--afas-white);
+}
+
+.step-indicator__item--completed .step-indicator__label {
+    color: var(--afas-dark-gray);
+}
+
+/* Connector line between steps */
+.step-indicator__connector {
+    width: 40px;
+    height: 2px;
+    background: var(--afas-light-gray);
+    transition: background var(--transition-normal);
+    flex-shrink: 0;
+}
+
+.step-indicator__connector--completed {
+    background: var(--afas-green);
+}
+
+/* --- Step Header --- */
+.step-header {
+    text-align: center;
+    margin-bottom: var(--space-xl);
+}
+
+.step-header__subtitle {
+    font-family: var(--font-body);
+    font-weight: 400;
+    font-size: 0.85rem;
+    color: var(--afas-light-gray);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: var(--space-xs);
+}
+
+.step-header__title {
+    font-family: var(--font-heading);
+    font-weight: 900;
+    font-size: 1.6rem;
+    color: var(--afas-black);
+    letter-spacing: -0.02em;
+}
+
+/* --- Card Grid --- */
+.card-grid {
+    display: grid;
+    gap: var(--space-md);
+}
+
+.card-grid--cols-3 {
+    grid-template-columns: repeat(3, 1fr);
+}
+
+/* --- Option Card --- */
+.option-card {
+    background: var(--afas-white);
+    border: 2px solid transparent;
+    border-radius: var(--border-radius);
+    padding: var(--space-lg);
+    cursor: pointer;
+    text-align: center;
+    box-shadow: var(--shadow-card);
+    transition:
+        border-color var(--transition-normal),
+        box-shadow var(--transition-normal),
+        transform var(--transition-fast),
+        background var(--transition-normal);
+    position: relative;
+    overflow: hidden;
+}
+
+.option-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: transparent;
+    transition: background var(--transition-normal);
+}
+
+.option-card:hover {
+    border-color: var(--afas-extra-light-blue);
+    box-shadow: var(--shadow-card-hover);
+    transform: translateY(-2px);
+}
+
+.option-card--selected {
+    border-color: var(--afas-blue);
+    box-shadow: var(--shadow-card-active);
+    background: rgba(0, 95, 170, 0.03);
+}
+
+.option-card--selected::before {
+    background: var(--afas-blue);
+}
+
+.option-card__icon {
+    font-size: 2.2rem;
+    margin-bottom: var(--space-md);
+    display: block;
+    line-height: 1;
+}
+
+.option-card__title {
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-size: 1rem;
+    color: var(--afas-black);
+    margin-bottom: var(--space-xs);
+}
+
+.option-card__description {
+    font-size: 0.8rem;
+    color: var(--afas-dark-gray);
+    line-height: 1.5;
+}
+
+/* Price badge on scan cards */
+.option-card__price {
+    display: inline-block;
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-size: 0.85rem;
+    padding: 4px 12px;
+    border-radius: 20px;
+    margin-top: var(--space-md);
+    background: var(--afas-extra-light-blue);
+    color: var(--afas-blue);
+}
+
+.option-card--selected .option-card__price {
+    background: var(--afas-blue);
+    color: var(--afas-white);
+}
+
+/* --- Navigation --- */
+.step-navigation {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: var(--space-2xl);
+    padding-top: var(--space-lg);
+    border-top: 1px solid var(--afas-light-gray);
+}
+
+.btn {
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-size: 0.95rem;
+    padding: 12px 32px;
+    border-radius: var(--border-radius-sm);
+    border: none;
+    cursor: pointer;
+    transition:
+        background var(--transition-normal),
+        transform var(--transition-fast),
+        box-shadow var(--transition-normal);
+    user-select: none;
+    letter-spacing: 0.01em;
+}
+
+.btn:active {
+    transform: scale(0.97);
+}
+
+.btn--primary {
+    background: var(--afas-orange);
+    color: var(--afas-white);
+}
+
+.btn--primary:hover {
+    background: #e08e28;
+    box-shadow: 0 4px 12px rgba(245, 159, 57, 0.3);
+}
+
+.btn--primary:disabled {
+    background: var(--afas-light-gray);
+    color: var(--afas-white);
+    cursor: not-allowed;
+    box-shadow: none;
+    transform: none;
+}
+
+.btn--secondary {
+    background: transparent;
+    color: var(--afas-dark-gray);
+    border: 1px solid var(--afas-light-gray);
+}
+
+.btn--secondary:hover {
+    background: var(--afas-extra-light-gray);
+    border-color: var(--afas-dark-gray);
+}
+
+.btn--ghost {
+    background: transparent;
+    color: var(--afas-light-gray);
+    visibility: hidden;
+}
+
+/* --- Kosten Resultaat (Step 3) --- */
+.kosten-resultaat {
+    text-align: center;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.kosten-resultaat__selectie {
+    display: flex;
+    justify-content: center;
+    gap: var(--space-lg);
+    margin-bottom: var(--space-2xl);
+}
+
+.kosten-selectie-item {
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+    font-size: 0.9rem;
+    color: var(--afas-dark-gray);
+}
+
+.kosten-selectie-item__icon {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: var(--afas-extra-light-blue);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.1rem;
+    flex-shrink: 0;
+}
+
+.kosten-selectie-item__label {
+    font-family: var(--font-heading);
+    font-weight: 300;
+    font-size: 0.8rem;
+    color: var(--afas-light-gray);
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+}
+
+.kosten-selectie-item__value {
+    font-family: var(--font-heading);
+    font-weight: 700;
+    color: var(--afas-black);
+}
+
+.kosten-resultaat__prijs-card {
+    background: var(--afas-white);
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow-card);
+    padding: var(--space-2xl) var(--space-xl);
+    border-top: 4px solid var(--afas-blue);
+    margin-bottom: var(--space-xl);
+}
+
+.kosten-resultaat__label {
+    font-family: var(--font-body);
+    font-weight: 400;
+    font-size: 0.9rem;
+    color: var(--afas-dark-gray);
+    margin-bottom: var(--space-sm);
+}
+
+.kosten-resultaat__prijs {
+    font-family: var(--font-heading);
+    font-weight: 900;
+    font-size: 3.5rem;
+    color: var(--afas-blue);
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+}
+
+.kosten-resultaat__btw {
+    font-family: var(--font-body);
+    font-weight: 300;
+    font-size: 0.8rem;
+    color: var(--afas-light-gray);
+    margin-top: var(--space-xs);
+}
+
+.kosten-resultaat__beschrijving {
+    font-size: 0.9rem;
+    color: var(--afas-dark-gray);
+    line-height: 1.7;
+    margin-bottom: var(--space-xl);
+}
+
+.kosten-resultaat__cta {
+    display: inline-block;
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-size: 1rem;
+    padding: 14px 40px;
+    border-radius: var(--border-radius-sm);
+    border: none;
+    cursor: pointer;
+    background: var(--afas-green);
+    color: var(--afas-white);
+    text-decoration: none;
+    transition:
+        background var(--transition-normal),
+        transform var(--transition-fast),
+        box-shadow var(--transition-normal);
+}
+
+.kosten-resultaat__cta:hover {
+    background: #2fb348;
+    box-shadow: 0 4px 12px rgba(60, 198, 88, 0.3);
+    transform: translateY(-1px);
+}
+
+.kosten-resultaat__cta:active {
+    transform: scale(0.97);
+}
+
+/* --- Step Content Transition --- */
+.step-content {
+    opacity: 1;
+    transform: translateX(0);
+    transition: opacity var(--transition-slow), transform var(--transition-slow);
+}
+
+.step-content--entering {
+    opacity: 0;
+    transform: translateX(30px);
+}
+
+.step-content--exiting {
+    opacity: 0;
+    transform: translateX(-30px);
+}
+
+/* --- Validation Shake --- */
+@keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    20% { transform: translateX(-6px); }
+    40% { transform: translateX(6px); }
+    60% { transform: translateX(-4px); }
+    80% { transform: translateX(4px); }
+}
+
+.btn--shake {
+    animation: shake 0.4s ease;
+}
+
+/* --- Validation message --- */
+.validation-message {
+    text-align: center;
+    color: #D32F2F;
+    font-size: 0.85rem;
+    margin-top: var(--space-md);
+    opacity: 0;
+    transition: opacity var(--transition-normal);
+}
+
+.validation-message--visible {
+    opacity: 1;
+}
+
+/* --- Responsive --- */
+@media (max-width: 768px) {
+    .configurator {
+        padding: var(--space-lg) var(--space-md);
+    }
+
+    .card-grid--cols-3 {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .step-indicator__label {
+        display: none;
+    }
+
+    .step-indicator__connector {
+        width: 24px;
+    }
+
+    .step-header__title {
+        font-size: 1.3rem;
+    }
+
+    .kosten-resultaat__prijs {
+        font-size: 2.5rem;
+    }
+
+    .kosten-resultaat__selectie {
+        flex-direction: column;
+        align-items: center;
+        gap: var(--space-md);
+    }
+}
+
+@media (max-width: 480px) {
+    .card-grid--cols-3 {
+        grid-template-columns: 1fr;
+    }
+
+    .step-navigation {
+        flex-direction: column-reverse;
+        gap: var(--space-md);
+    }
+
+    .btn {
+        width: 100%;
+        text-align: center;
+    }
+
+    .btn--ghost {
+        display: none;
+    }
+
+    .configurator-header__title {
+        font-size: 0.95rem;
+    }
+
+    .kosten-resultaat__prijs {
+        font-size: 2rem;
+    }
+}
