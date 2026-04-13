@@ -1,8 +1,8 @@
 /**
- * Data voor de SuccesScan Configurator
+ * Data voor de Successcan Configurator
  */
 
-const SuccesScanData = {
+const SuccesscanData = {
 
     branches: [
         {

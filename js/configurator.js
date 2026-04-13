@@ -1,5 +1,5 @@
 /**
- * AFAS SuccesScan Configurator — Wizard Logic
+ * AFAS Successcan Configurator — Wizard Logic
  * Vanilla JS, no dependencies
  */
 
@@ -162,7 +162,7 @@ const Configurator = (() => {
                 <h2 class="step-header__title">In welke branche is je organisatie actief?</h2>
             </div>
             <div class="card-grid card-grid--cols-3">
-                ${SuccesScanData.branches.map(b => `
+                ${SuccesscanData.branches.map(b => `
                     <div class="option-card ${state.selectedBranche === b.id ? 'option-card--selected' : ''}"
                          onclick="Configurator.selectBranche('${b.id}')">
                         <span class="option-card__icon">${b.icoon}</span>
@@ -185,16 +185,15 @@ const Configurator = (() => {
         container.innerHTML = `
             <div class="step-header">
                 <div class="step-header__subtitle">Stap 2 van 3</div>
-                <h2 class="step-header__title">Welke SuccesScan wil je uitvoeren?</h2>
+                <h2 class="step-header__title">Welke Successcan wil je uitvoeren?</h2>
             </div>
             <div class="card-grid card-grid--cols-3">
-                ${SuccesScanData.scanVarianten.map(s => `
+                ${SuccesscanData.scanVarianten.map(s => `
                     <div class="option-card ${state.selectedScan === s.id ? 'option-card--selected' : ''}"
                          onclick="Configurator.selectScan('${s.id}')">
                         <span class="option-card__icon">${s.icoon}</span>
                         <div class="option-card__title">${s.naam}</div>
                         <div class="option-card__description">${s.beschrijving}</div>
-                        <span class="option-card__price">${SuccesScanData.formatKosten(s.kosten)}</span>
                     </div>
                 `).join('')}
             </div>
@@ -209,13 +208,13 @@ const Configurator = (() => {
 
     // ── Step 3: Kosten Resultaat ───────────────
     function renderKostenStep(container) {
-        const branche = SuccesScanData.branches.find(b => b.id === state.selectedBranche);
-        const scan = SuccesScanData.scanVarianten.find(s => s.id === state.selectedScan);
+        const branche = SuccesscanData.branches.find(b => b.id === state.selectedBranche);
+        const scan = SuccesscanData.scanVarianten.find(s => s.id === state.selectedScan);
 
         container.innerHTML = `
             <div class="step-header">
                 <div class="step-header__subtitle">Stap 3 van 3</div>
-                <h2 class="step-header__title">Kosten van je SuccesScan</h2>
+                <h2 class="step-header__title">Kosten van je Successcan</h2>
             </div>
 
             <div class="kosten-resultaat">
@@ -231,25 +230,25 @@ const Configurator = (() => {
                         <span class="kosten-selectie-item__icon">${scan.icoon}</span>
                         <div>
                             <div class="kosten-selectie-item__label">Type scan</div>
-                            <div class="kosten-selectie-item__value">${scan.naam} SuccesScan</div>
+                            <div class="kosten-selectie-item__value">${scan.naam} Successcan</div>
                         </div>
                     </div>
                 </div>
 
                 <div class="kosten-resultaat__prijs-card">
-                    <div class="kosten-resultaat__label">Totale kosten SuccesScan</div>
-                    <div class="kosten-resultaat__prijs">${SuccesScanData.formatKosten(scan.kosten)}</div>
+                    <div class="kosten-resultaat__label">Totale kosten Successcan</div>
+                    <div class="kosten-resultaat__prijs">${SuccesscanData.formatKosten(scan.kosten)}</div>
                     <div class="kosten-resultaat__btw">Exclusief BTW</div>
                 </div>
 
                 <p class="kosten-resultaat__beschrijving">
-                    De ${scan.naam} SuccesScan biedt een grondige analyse van je huidige inrichting
+                    De ${scan.naam} Successcan biedt een grondige analyse van je huidige inrichting
                     en geeft concrete verbeterpunten om meer uit AFAS te halen.
                     Na de scan ontvang je een helder rapport met prioriteiten en een plan van aanpak.
                 </p>
 
                 <a href="https://klant.afas.nl/successcan" class="kosten-resultaat__cta" target="_blank" rel="noopener">
-                    SuccesScan aanvragen →
+                    Successcan aanvragen →
                 </a>
             </div>
         `;
